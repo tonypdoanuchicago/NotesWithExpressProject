@@ -4,12 +4,12 @@ const PORT = 3001;
 
 const app = express();
 
-// GET request for notes
-app.get('/api/notes', (req, res) => {
-    var fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),    
     filePath = path.join(__dirname, 'db/db.json');
-
+    
+// GET request for notes
+app.get('/api/notes', (req, res) => {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
