@@ -51,7 +51,7 @@ app.post('/api/notes', (req, res) => {
 
     var notes = JSON.parse(dataString);
 
-    let numberNotes = Object.keys(notes).length
+    // let numberNotes = Object.keys(notes).length
   
     //notes.push({"id":numberNotes,
     //"title":req.body.title,
