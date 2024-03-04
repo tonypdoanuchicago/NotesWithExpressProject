@@ -49,6 +49,8 @@ app.post('/api/notes', (req, res) => {
         }
     });
 
+    console.log("dataString: " + dataString);
+
     var notes = JSON.parse(dataString);
 
     let numberNotes = Object.keys(notes).length
