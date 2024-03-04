@@ -49,7 +49,7 @@ app.post('/api/notes', (req, res) => {
         }
     });
 
-    var notes = JSON.parse(dataString);
+    // var notes = JSON.parse(dataString);
 
     // let numberNotes = Object.keys(notes).length
   
@@ -59,7 +59,7 @@ app.post('/api/notes', (req, res) => {
 
     // Log our request to the terminal
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(JSON.stringify(notes));
+    res.write(dataString);
     res.end();
   });
 
