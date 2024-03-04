@@ -44,25 +44,25 @@ app.post('/api/notes', (req, res) => {
         if (!err) {
             console.log('received data: ' + data);
             dataString = data;
+
+            console.log("dataString: " + dataString);
+
+            var notes = JSON.parse(dataString);
+
+            let numberNotes = Object.keys(notes).length
+        
+            notes.push({"id":numberNotes,
+            "title":req.body.title,
+            "text":req.body.text});
+
+            // Log our request to the terminal
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            // res.write(dataString);
+            res.end();
         } else {
             console.log(err);
         }
     });
-
-    console.log("dataString: " + dataString);
-
-    var notes = JSON.parse(dataString);
-
-    let numberNotes = Object.keys(notes).length
-  
-    notes.push({"id":numberNotes,
-    "title":req.body.title,
-    "text":req.body.text});
-
-    // Log our request to the terminal
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    // res.write(dataString);
-    res.end();
   });
 
 // Create a route for handling delete requests
