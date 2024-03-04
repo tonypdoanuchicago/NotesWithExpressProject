@@ -55,10 +55,12 @@ app.post('/api/notes', (req, res) => {
             "title":req.body.title,
             "text":req.body.text});
 
-            // Log our request to the terminal
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            // res.write(dataString);
-            res.end();
+            var fs = require('fs');
+
+            fs.writeFile('db/db.json', JSON.stringify(notes), function (err) {
+            if (err) throw err;
+            console.log('Replaced!');
+            });            
         } else {
             console.log(err);
         }
