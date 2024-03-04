@@ -53,12 +53,12 @@ app.post('/api/notes', (req, res) => {
 
     let numberNotes = Object.keys(notes).length
   
-    notes.push({"id":numberNotes,
-    "title":req.body.title,
-    "text":req.body.text});
+    //notes.push({"id":numberNotes,
+    //"title":req.body.title,
+    // "text":req.body.text});
 
     // Log our request to the terminal
-    console.info(`${req.method} request received to add a review`);
+    res.write(JSON.stringify(notes))
   });
 
 // Create a route for handling delete requests
