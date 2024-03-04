@@ -4,9 +4,8 @@ const PORT = 3000;
 
 const app = express();
 
-
-app.use('assets/css', express.static(__dirname + '/public'));
-app.use('assets/js', express.static(__dirname + '/public'));
+app.use('*/css',express.static('public/css'));
+app.use('*/js',express.static('public/js'));
 
 var fs = require('fs'),
     path = require('path'),    
