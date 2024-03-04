@@ -4,6 +4,10 @@ const PORT = 3000;
 
 const app = express();
 
+
+app.use(express.static('public/js'));
+app.use(express.static('public/css'));
+
 var fs = require('fs'),
     path = require('path'),    
     filePath = path.join(__dirname, 'db/db.json');
