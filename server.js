@@ -40,6 +40,9 @@ app.get('/api/notes', (req, res) => {
 // POST request for notes
 app.post('/api/notes', (req, res) => {
     var dataString = "";
+    var title = req.body.title;
+    var text = req.body.text;
+
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
@@ -50,12 +53,10 @@ app.post('/api/notes', (req, res) => {
             var notes = JSON.parse(dataString);
 
             let numberNotes = Object.keys(notes).length
-        
-            console.log("req.body: " + req.body);
 
             notes.push({"id":numberNotes,
-            "title":req.body.title,
-            "text":req.body.text});
+            "title":title,
+            "text":text});
 
             var fs = require('fs');
 
