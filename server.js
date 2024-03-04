@@ -12,6 +12,14 @@ var fs = require('fs'),
         console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
       });
 
+      app.get("/", (req, res, next) => {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    });
+
+    app.get("/notes.html", (req, res, next) => {
+        res.sendFile(path.join(__dirname, 'public', 'notes.html'));
+    });
+
 // GET request for notes
 app.get('/api/notes', (req, res) => {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
