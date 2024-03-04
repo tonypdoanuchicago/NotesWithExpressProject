@@ -58,7 +58,9 @@ app.post('/api/notes', (req, res) => {
     // "text":req.body.text});
 
     // Log our request to the terminal
-    res.write(JSON.stringify(notes))
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(JSON.stringify(notes));
+    res.end();
   });
 
 // Create a route for handling delete requests
