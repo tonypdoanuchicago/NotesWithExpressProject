@@ -16,7 +16,7 @@ var fs = require('fs'),
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 
-    app.get("/notes.html", (req, res, next) => {
+    app.get("/notes", (req, res, next) => {
         res.sendFile(path.join(__dirname, 'public', 'notes.html'));
     });
 
