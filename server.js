@@ -1,6 +1,6 @@
 const express = require('express');
 
-const PORT = 3001;
+const PORT = 3000;
 
 const app = express();
 
@@ -8,6 +8,10 @@ var fs = require('fs'),
     path = require('path'),    
     filePath = path.join(__dirname, 'db/db.json');
     
+    app.listen(process.env.PORT || PORT, function(){
+        console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+      });
+
 // GET request for notes
 app.get('/api/notes', (req, res) => {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
