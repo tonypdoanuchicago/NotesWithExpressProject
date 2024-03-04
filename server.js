@@ -36,9 +36,24 @@ app.get('/api/notes', (req, res) => {
 
 // POST request for notes
 app.post('/api/notes', (req, res) => {
-    // Inform the client that their POST request was received
-    res.json(`${req.method} request received to add a review`);
+    var dataString = "";
+    fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+        if (!err) {
+            console.log('received data: ' + data);
+            dataString += data;
+        } else {
+            console.log(err);
+        }
+    });
+
+    var notes = JSON.parse(dataString);
+
+    let numberNotes = Object.keys(notes).length
   
+    notes.push({"id":numberNotes,
+    "title":req.body.title,
+    "text":req.body.text});
+
     // Log our request to the terminal
     console.info(`${req.method} request received to add a review`);
   });
@@ -48,8 +63,20 @@ app.delete('/api/notes/:id', function(req, res) {
     // Get the note ID from the request parameters
     const id = req.params.id;
   
+    var dataString = "";
+    fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+        if (!err) {
+            console.log('received data: ' + data);
+            dataString += data;
+        } else {
+            console.log(err);
+        }
+    });
+
+    var notes = JSON.parse(dataString);
+
     // Find the note in the database
-    const note = notes.find(note => note.id === id);
+    let note = notes.find(note => note.id === id);
   
     // If the note doesn't exist, return a 404 error
     if (!note) {
@@ -58,6 +85,13 @@ app.delete('/api/notes/:id', function(req, res) {
   
     // Delete the note from the database
     notes.splice(notes.indexOf(note), 1);
+
+    var fs = require('fs');
+
+    fs.writeFile('db/db.json', JSON.stringify(notes), function (err) {
+    if (err) throw err;
+    console.log('Replaced!');
+    });
   
     // Send a 204 No Content response
     res.status(204).send();
