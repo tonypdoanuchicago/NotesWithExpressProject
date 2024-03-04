@@ -5,8 +5,8 @@ const PORT = 3000;
 const app = express();
 
 
-app.use(express.static('public/js'));
-app.use(express.static('public/css'));
+app.use('css', express.static(__dirname + '/public'));
+app.use('js', express.static(__dirname + '/public'));
 
 var fs = require('fs'),
     path = require('path'),    
