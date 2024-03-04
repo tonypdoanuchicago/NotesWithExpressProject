@@ -43,23 +43,23 @@ app.post('/api/notes', (req, res) => {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
-            dataString += data;
+            dataString = data;
         } else {
             console.log(err);
         }
     });
 
-    // var notes = JSON.parse(dataString);
+    var notes = JSON.parse(dataString);
 
-    // let numberNotes = Object.keys(notes).length
+    let numberNotes = Object.keys(notes).length
   
-    //notes.push({"id":numberNotes,
-    //"title":req.body.title,
-    // "text":req.body.text});
+    notes.push({"id":numberNotes,
+    "title":req.body.title,
+    "text":req.body.text});
 
     // Log our request to the terminal
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(dataString);
+    // res.write(dataString);
     res.end();
   });
 
