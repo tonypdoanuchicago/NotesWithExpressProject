@@ -8,7 +8,8 @@ This is Challenge 11 of the Northwestern University Boot Camp course.
  # Deployed Web App to Render
  <a href='https://noteswithexpressproject.onrender.com/notes'>https://noteswithexpressproject.onrender.com/notes</a>
  
-
+Web Page Screenshot
+![alt text](https://github.com/tonypdoanuchicago/NotesWithExpressProject/blob/main/Challenge_11_Screenshot.png)](https://github.com/tonypdoanuchicago/NotesWithExpressProject/blob/main/Challenge_11_Screenshot.png?raw=true)
 
  This Challenge is graded based on the following criteria:
 
