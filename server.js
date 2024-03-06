@@ -7,6 +7,10 @@ const app = express();
 app.use('*/css',express.static('public/assets/css'));
 app.use('*/js',express.static('public/assets/js'));
 
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 var fs = require('fs'),
     path = require('path'),    
     filePath = path.join(__dirname, 'db/db.json');
@@ -40,8 +44,8 @@ app.get('/api/notes', (req, res) => {
 // POST request for notes
 app.post('/api/notes', (req, res) => {
     var dataString = "";
-    var title = req.body.title;
-    var text = req.body.text;
+    
+    const { title, text } = req.body;
 
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
@@ -63,7 +67,9 @@ app.post('/api/notes', (req, res) => {
             fs.writeFile('db/db.json', JSON.stringify(notes), function (err) {
             if (err) throw err;
             console.log('Replaced!');
-            });            
+            });     
+
+            res.status(204).send();
         } else {
             console.log(err);
         }
@@ -79,30 +85,30 @@ app.delete('/api/notes/:id', function(req, res) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
-            dataString += data;
+            dataString = data;
+
+            var notes = JSON.parse(dataString);
+
+            // Find the note in the database
+            let note = notes.find(note => note.id === id);
+        
+            // If the note doesn't exist, return a 404 error
+            if (!note) {
+            // return res.status(404).send('Note not found');
+            }
+        
+            // Delete the note from the database
+            notes.splice(notes.indexOf(note), 1);
+
+            var fs = require('fs');
+
+            fs.writeFile('db/db.json', JSON.stringify(notes), function (err) {
+            if (err) throw err;
+            console.log('Replaced!');
+            });
         } else {
             console.log(err);
         }
-    });
-
-    var notes = JSON.parse(dataString);
-
-    // Find the note in the database
-    let note = notes.find(note => note.id === id);
-  
-    // If the note doesn't exist, return a 404 error
-    if (!note) {
-      return res.status(404).send('Note not found');
-    }
-  
-    // Delete the note from the database
-    notes.splice(notes.indexOf(note), 1);
-
-    var fs = require('fs');
-
-    fs.writeFile('db/db.json', JSON.stringify(notes), function (err) {
-    if (err) throw err;
-    console.log('Replaced!');
     });
   
     // Send a 204 No Content response

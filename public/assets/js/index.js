@@ -5,6 +5,8 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+var hasReloaded = false;
+
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
   noteTitle = document.querySelector('.note-title');
@@ -36,14 +38,15 @@ const getNotes = () =>
     }
   });
 
-const saveNote = (note) =>
-  fetch('/api/notes', {
+const saveNote = (note) => {
+  return fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(note)
   });
+}
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -177,7 +180,7 @@ const renderNoteList = async (notes) => {
   });
 
   console.log("number of notes: " + noteListItems.length);
-  
+
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
